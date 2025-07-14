@@ -2,6 +2,7 @@ spring:
   datasource:
     #url: jdbc:postgresql://localhost:5432/postgresql
     url: jdbc:postgresql://10.178.0.10:5432/postgresql
+
     username: postgresql
     password: postgrespassword
   jpa:
@@ -9,6 +10,7 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
-server:
-  port: 8081
+# for local test
+#server:
+#  port: 8081
 
