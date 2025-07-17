@@ -1,4 +1,5 @@
 package class101.foo.io;
+
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
@@ -9,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Configuration
 public class ElasticsearchConfig {
     @Value("#{'${spring.data.elasticsearch.hosts}'.split(',')}")
     private List<String> hosts;
@@ -18,12 +21,13 @@ public class ElasticsearchConfig {
 
     @Bean
     public RestHighLevelClient getRestClient() {
-        List<HttpHost> httpHosts = new ArrayList<>();
-        for (String host : hosts) {
-            httpHosts.add(new HttpHost(host, port, "http"));
-        }
-        RestClientBuilder builder = RestClient.builder(httpHosts.toArray(new HttpHost[httpHosts.size()]));
 
+        List<HttpHost> hostList = new ArrayList<>();
+        for (String host : hosts) {
+            hostList.add(new HttpHost(host, port, "http"));
+        }
+
+        RestClientBuilder builder = RestClient.builder(hostList.toArray(new HttpHost[hostList.size()]));
         return new RestHighLevelClient(builder);
     }
 }
